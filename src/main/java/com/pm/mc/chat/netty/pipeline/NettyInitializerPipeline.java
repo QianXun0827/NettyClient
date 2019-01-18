@@ -1,6 +1,8 @@
 package com.pm.mc.chat.netty.pipeline;
 
-import com.pm.mc.chat.netty.handler.client.AdsMessagePublishHandler;
+import com.pm.mc.chat.netty.handler.client.AdsDownMessageHandler;
+import com.pm.mc.chat.netty.handler.client.AdsPublishMessageHandler;
+import com.pm.mc.chat.netty.handler.client.AdsSettingMessageHandler;
 import com.pm.mc.chat.netty.handler.core.HeartBeatHandler;
 import com.pm.mc.chat.netty.handler.core.MsgChatHandler;
 import com.pm.mc.chat.netty.pojo.Msg;
@@ -45,8 +47,12 @@ public class NettyInitializerPipeline extends ChannelInitializer<SocketChannel> 
 
         //除心跳登陆外，所有消息先到MsgHandler中进行分发
         pipeline.addLast(new MsgChatHandler());
+        //cmsAdsSetting设置
+        pipeline.addLast(new AdsSettingMessageHandler());
         //cmsAds发布
-        pipeline.addLast(new AdsMessagePublishHandler());
+        pipeline.addLast(new AdsPublishMessageHandler());
+        //cmsAds下架
+        pipeline.addLast(new AdsDownMessageHandler());
 
 
         //心跳包发送

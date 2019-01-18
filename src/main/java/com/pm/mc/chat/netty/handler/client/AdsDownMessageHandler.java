@@ -1,6 +1,7 @@
 package com.pm.mc.chat.netty.handler.client;
 
 import com.pm.mc.chat.netty.net.UrlEnum;
+import com.pm.mc.chat.netty.pojo.CmsAdsDownMessage;
 import com.pm.mc.chat.netty.pojo.CmsAdsMessage;
 import com.pm.mc.chat.netty.pojo.Msg;
 import io.netty.channel.ChannelHandler;
@@ -16,28 +17,27 @@ import org.springframework.stereotype.Service;
  * @author huhaiqiang
  * @date 2018/10/06 10:46
  */
-@Service("AdsMessagePublishHandler")
+@Service("AdsMessageDownHandler")
 @Scope("prototype")
 @ChannelHandler.Sharable
 @Slf4j
-public class AdsMessagePublishHandler extends SimpleChannelInboundHandler<CmsAdsMessage> {
+public class AdsDownMessageHandler extends SimpleChannelInboundHandler<CmsAdsDownMessage> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, CmsAdsMessage cmsAtfMessage) throws Exception {
-        Msg.AdsMessage adsMessage = Msg.AdsMessage.newBuilder()
-                .setAdsId(cmsAtfMessage.getAdsId())
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, CmsAdsDownMessage cmsAdsDownMessage) throws Exception {
+        Msg.AdsDownMessage adsDownMessage = Msg.AdsDownMessage.newBuilder()
                 .setIccid(UrlEnum.SERVER_IP_PORT_ICCID.getIccid())
-                .setAdsType(cmsAtfMessage.getAdsType())
-                .setAdsArea(cmsAtfMessage.getAdsArea())
-                .setShelterMonitor(cmsAtfMessage.getShelterMonitor())
+                .setAdsId(cmsAdsDownMessage.getAdsId())
+                .setAdsArea(cmsAdsDownMessage.getAdsArea())
+                .setShelterMonitor(cmsAdsDownMessage.getShelterMonitor())
                 .setStatus(1)
                 .build();
         Msg.Message message = Msg.Message.newBuilder()
-                .setMessageType(Msg.MessageType.ADS_PUBLISH)
-                .setAdsMessage(adsMessage)
+                .setMessageType(Msg.MessageType.ADS_DOWN)
+                .setAdsDownMessage(adsDownMessage)
                 .build();
         channelHandlerContext.writeAndFlush(message);
-        log.info("返回服务器【ADS_PUBLISH】信息接收成功消息：【{}】", message);
+        log.info("返回服务器客户端数据处理成功消息：【{}】", message);
     }
 
     @Override
