@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author huhaiqiang
  * @date 2018/10/06 10:46
  */
-@Service("AdsMessageDownHandler")
+@Service("AdsSettingMessageHandler")
 @Scope("prototype")
 @ChannelHandler.Sharable
 @Slf4j
@@ -29,6 +29,7 @@ public class AdsSettingMessageHandler extends SimpleChannelInboundHandler<CmsAds
                 .setIccid(UrlEnum.SERVER_IP_PORT_ICCID.getIccid())
                 .setSubareaNum(cmsAdsSettingMessage.getSubareaNum())
                 .setAdsAreaVoice(cmsAdsSettingMessage.getAdsAreaVoice())
+                .setStatus(1)
                 .build();
         Msg.Message message = Msg.Message.newBuilder()
                 .setMessageType(Msg.MessageType.ADS_SETTING)
