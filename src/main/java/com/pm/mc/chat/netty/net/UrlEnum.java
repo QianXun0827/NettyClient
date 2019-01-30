@@ -1,5 +1,10 @@
 package com.pm.mc.chat.netty.net;
 
+import com.sun.javafx.collections.MappingChange;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 功能描述：
  * 【】
@@ -13,8 +18,8 @@ public enum UrlEnum {
     /**
      * 服务器IP、端口号、iccid
      */
-//    SERVER_IP_PORT_ICCID("47.98.225.240",10201,"10001");
-    SERVER_IP_PORT_ICCID("192.168.2.139",10012,"10001");
+//    SERVER_IP_PORT_ICCID("47.98.225.240",10012,"c9413b822dccdc9dXO7RP5NZFT");
+    SERVER_IP_PORT_ICCID("192.168.2.139",10012,"c9413b822dccdc9dXO7RP5NZFT");
 
     private String ip;
     private Integer post;
@@ -49,4 +54,6 @@ public enum UrlEnum {
     public void setIccid(String iccid) {
         this.iccid = iccid;
     }
+
+
 }
